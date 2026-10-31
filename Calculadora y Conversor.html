@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Calculadora y Conversor ET403</title>
+  <style>
+    /* ESTILOS Y PALETA RGB AZUL rgb(30, 64, 175) */
+    body {
+      font: 18px system-ui;
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 20px;
+      color: #1e293b;
+    }
+
+    h1 {
+      color: rgb(30, 64, 175);
+      font-size: 28px;
+    }
+
+    #descripcion-principal {
+      font-size: 16px;
+      color: rgb(30, 64, 175);
+      font-weight: bold;
+    }
+
+    label {
+      display: block;
+      margin-top: 16px;
+    }
+
+    input, select, button {
+      font: inherit;
+      padding: 10px;
+    }
+
+    input {
+      width: 95%;
+    }
+
+    button {
+      margin-top: 20px;
+      background-color: rgb(30, 64, 175);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: rgb(20, 45, 125);
+    }
+
+    #resultado, #conv-salida {
+      background: #eef3f8;
+      padding: 16px;
+      border-radius: 4px;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Calculadora ET403 · Semana 9 - Grupo 2</h1>
+  <p id="descripcion-principal">Herramienta web integrada para operaciones aritméticas y conversión de unidades métricas.</p>
+
+  <!-- SECCIÓN 1: Calculadora original -->
+  <section aria-labelledby="titulo-calculadora">
+    <h2 id="titulo-calculadora">1. Ejecutar mi versión (Calculadora)</h2>
+    <label for="a">Primer dato</label>
+    <input id="a" type="text" value="12" autocomplete="off">
+    
+    <label for="b">Segundo dato</label>
+    <input id="b" type="text" value="3" autocomplete="off">
+    
+    <label for="operacion">Operación</label>
+    <select id="operacion">
+      <option value="sumar">Sumar</option>
+      <option value="dividir">Dividir</option>
+    </select>
+    
+    <button id="calcular" type="button">Calcular</button>
+    <p id="resultado" role="status" aria-live="polite">Pulse Calcular para probar.</p>
+  </section>
+
+  <hr style="margin: 30px 0;">
+
+  <!-- SECCIÓN 2: Conversor de unidades -->
+  <section aria-labelledby="conv-titulo">
+    <h2 id="conv-titulo">2. Conversor de unidades</h2>
+    <form id="conv-form" novalidate>
+      <label class="etiqueta-conversion" for="conv-valor">Cantidad que deseo convertir</label>
+      <input id="conv-valor" type="number" min="0" step="any">
+      
+      <label for="conv-operacion">Conversión</label>
+      <select id="conv-operacion"></select>
+      
+      <button type="submit">Convertir</button>
+      <p id="conv-salida" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+
+  <script>
+    "use strict";
+
+    // --- LÓGICA DE LA CALCULADORA (Semana 7) ---
+    document.getElementById("calcular").addEventListener("click", function (e) {
+      e.preventDefault(); // Evita recargas imprevistas
+      
+      const textoA = document.getElementById("a").value.trim();
+      const textoB = document.getElementById("b").value.trim();
+      const operacion = document.getElementById("operacion").value;
+      const salida = document.getElementById("resultado");
+
+      if (textoA === "" || textoB === "") {
+        salida.textContent = "Complete las dos entradas.";
+        return;
+      }
+
+      const a = Number(textoA);
+      const b = Number(textoB);
+
+      if (!Number.isFinite(a) || !Number.isFinite(b)) {
+        salida.textContent = "Escriba números válidos en ambas entradas.";
+        return;
+      }
+
+      if (operacion === "dividir" && b === 0) {
+        salida.textContent = "No se puede dividir entre cero.";
+        return;
+      }
+
+      if (operacion === "sumar") {
+        salida.textContent = "Suma: " + (a + b);
+      } else {
+        salida.textContent = "División: " + (a / b);
+      }
+    });
+
+
+    // --- LÓGICA DEL CONVERSOR DE UNIDADES (Semana 9) ---
+    const conversiones = [
+      { id: "m-cm", nombre: "Metros a centímetros", factor: 100, unidadSingular: "centímetro", unidadPlural: "centímetros" },
+      { id: "cm-m", nombre: "Centímetros a metros", factor: 0.01, unidadSingular: "metro", unidadPlural: "metros" },
+      { id: "kg-g", nombre: "Kilogramos a gramos", factor: 1000, unidadSingular: "gramo", unidadPlural: "gramos" },
+      { id: "g-kg", nombre: "Gramos a kilogramos", factor: 0.001, unidadSingular: "kilogramo", unidadPlural: "kilogramos" }
+    ];
+
+    function convertir(valor, id) {
+      if (String(valor).trim() === "") throw new Error("Escriba un valor.");
+      const numero = Number(valor), opcion = conversiones.find(x => x.id === id);
+      if (!Number.isFinite(numero) || numero < 0) throw new Error("Use un número finito, mayor o igual a cero.");
+      if (!opcion) throw new Error("Seleccione una conversión.");
+      
+      const resultado = numero * opcion.factor;
+      if (!Number.isFinite(resultado)) throw new Error("El resultado excede el rango admitido.");
+      
+      // Seleccionar unidad según si el resultado es 1 o diferente
+      const unidad = (resultado === 1) ? opcion.unidadSingular : opcion.unidadPlural;
+      
+      return {
+        valorFormatted: resultado.toLocaleString("es-PE", { maximumFractionDigits: 8 }),
+        unidad: unidad
+      };
+    }
+
+    if (typeof document !== "undefined") {
+      const selector = document.getElementById("conv-operacion");
+      
+      conversiones.forEach(x => {
+        const o = document.createElement("option");
+        o.value = x.id;
+        o.textContent = x.nombre;
+        selector.append(o);
+      });
+
+      document.getElementById("conv-form").addEventListener("submit", e => {
+        e.preventDefault();
+        const salida = document.getElementById("conv-salida");
+        try {
+          const res = convertir(document.getElementById("conv-valor").value, selector.value);
+          salida.textContent = "Resultado: " + res.valorFormatted + " " + res.unidad;
+        } catch (error) {
+          salida.textContent = error.message;
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
