@@ -1,0 +1,54 @@
+body {
+  font: 18px system-ui;
+  max-width: 700px;
+  margin: 30px auto;
+  padding: 20px;
+  color: #1e293b;
+}
+
+h1 {
+  /* Paleta RGB Azul requerida: rgb(30, 64, 175) */
+  color: rgb(30, 64, 175);
+  font-size: 28px;
+}
+
+/* Reto 4: Modificación de texto y tamaño de etiqueta mediante CSS */
+#descripcion-principal {
+  font-size: 16px;
+  color: rgb(30, 64, 175);
+  font-weight: bold;
+}
+
+label {
+  display: block;
+  margin-top: 16px;
+}
+
+input, select, button {
+  font: inherit;
+  padding: 10px;
+}
+
+input {
+  width: 95%;
+}
+
+button {
+  margin-top: 20px;
+  background-color: rgb(30, 64, 175);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(20, 45, 125);
+}
+
+#resultado, #conv-salida {
+  background: #eef3f8;
+  padding: 16px;
+  border-radius: 4px;
+  margin-top: 15px;
+}
