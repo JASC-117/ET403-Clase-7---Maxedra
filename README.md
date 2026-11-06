@@ -13,8 +13,8 @@ Trabajo grupal. Calculadora con suma y división (originales de la semana 7), re
 
 ## Enlaces
 
-1. **Sitio publicado (página de GitHub donde se subió el proyecto):** [https://grupo02.github.io/Calculadora-Conversor/](https://grupo02.github.io/Calculadora-Conversor/)
-2. **Repositorio de GitHub:** [https://github.com/Grupo02/Calculadora-Conversor](https://github.com/Grupo02/Calculadora-Conversor)
+1. **Sitio publicado (página de GitHub donde se subió el proyecto):** https://jasc-117.github.io/ET403-Semana9-Grupo2---Maxedra/
+2. **Repositorio de GitHub:** https://github.com/JASC-117/ET403-Semana9-Grupo2---Maxedra
 
 ## Estructura del proyecto
 
