@@ -13,8 +13,8 @@ Trabajo grupal. Calculadora con suma y división (originales de la semana 7), re
 
 ## Enlaces[cite: 2]
 
-1. Sitio publicado (página de GitHub donde se subió el proyecto): https://jasc-117.github.io/ET403-Clase-7---Maxedra/. [cite: 2]
-2. Repositorio: //github.com/JASC-117/ET403-Clase-7---Maxedra. [cite: 2]
+1. Sitio publicado (página de GitHub donde se subió el proyecto):  https://jasc-117.github.io/ET403-Semana9-Grupo2---Maxedra/. [cite: 2]
+2. Repositorio: https://github.com/JASC-117/ET403-Semana9-Grupo2---Maxedra. [cite: 2]
 
 ## Estructura del proyecto[cite: 2]
 
